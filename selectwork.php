@@ -3,7 +3,7 @@ session_start();
 require_once 'conf/db.inc';
 try {
     $db = new PDO(DSN, USER, PASS); 
-    $statement = $db->prepare('SELECT * FROM persona;'); 
+    $statement = $db->prepare('SELECT * FROM work;'); 
     $statement->execute(
     ); 
 } catch (PDOException $e) {
@@ -34,20 +34,18 @@ try {
 
 <body>
     
-    <form method="POST" action="play.php">
+    <form method="GET" action="choiceidentity.php">
         <select name="table" onchange="document.forms[0].submit();">
             <?php
             foreach ($statement as $key => $row) {
-                $table=$persona;
+                $table=$work;
                 echo '<option value="', $row['id'], '"',
                 $row['id']==$table? 'SELECTED':'' ,'>', $row['name'], '</option>';
             }
             ?>
         </select>
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer" name="">
     </form>
-    <form action="createpersona.php" method="POST">
-    <input type="submit" value="Création personnage" >
-    </form>
+    
 </body>
 </html>
